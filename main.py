@@ -1,6 +1,15 @@
 import discord
 from dotenv import dotenv_values
 
+banner = """
+```
+Help Menu:
+------------
+/help: To get available cmds
+/hello: To Greet
+```
+"""
+
 
 class Client(discord.Client):
     """Main Class for The Discord Bot"""
@@ -9,17 +18,11 @@ class Client(discord.Client):
 
     async def on_message(self, message):
         self.ch = message.channel
-        self.help = """
-Help Menu:\n
-```
-/help: To get available cmds \n
-/hello: To Greet
-```
-"""
+        self.help = banner
         if message.author == self.user:
             return
 
-        if message.content.lower() == "/help":
+        if message.content.startswith("/help"):
             await self.ch.send(self.help)
 
         if message.content.lower() == "/hello":
