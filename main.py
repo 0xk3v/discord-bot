@@ -23,8 +23,7 @@ Help Menu:\n
             await self.ch.send(self.help)
 
         if message.content.lower() == "/hello":
-            author = str(message.author)
-            await self.ch.send(f'Hello {author.rsplit("#")[0]},'
+            await self.ch.send(f'Hello {message.author.mention},'
                                '\nHow can I help you?')
 
 
