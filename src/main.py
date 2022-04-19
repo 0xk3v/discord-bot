@@ -1,4 +1,5 @@
-import discord
+# import discord
+from discord.ext import commands
 from dotenv import dotenv_values
 
 banner = """
@@ -11,7 +12,7 @@ Help Menu:
 """
 
 
-class Client(discord.Client):
+class Client(commands.Bot):
     """Main Class for The Discord Bot"""
     async def on_ready(self):
         print(f"Logged in as {self.user} ")
@@ -22,7 +23,7 @@ class Client(discord.Client):
         if message.author == self.user:
             return
 
-        if message.content.startswith("/help"):
+        if message.content.lower() == "/help":
             await self.ch.send(self.help)
 
         if message.content.lower() == "/hello":
@@ -31,5 +32,5 @@ class Client(discord.Client):
 
 
 config = dotenv_values(".env")
-client = Client()
+client = Client(command_prefix="+")
 client.run(config["TOKEN"])
