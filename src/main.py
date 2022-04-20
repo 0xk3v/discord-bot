@@ -1,36 +1,37 @@
-# import discord
 from discord.ext import commands
 from dotenv import dotenv_values
 
-banner = """
-```
-Help Menu:
-------------
-/help: To get available cmds
-/hello: To Greet
-```
-"""
+
+client = commands.Bot(command_prefix='/')
 
 
-class Client(commands.Bot):
-    """Main Class for The Discord Bot"""
-    async def on_ready(self):
-        print(f"Logged in as {self.user} ")
+@client.event
+async def on_ready():
+    """ Event to Check if The Bot is Active """
+    print(f"Logged in as {client.user} ")
 
-    async def on_message(self, message):
-        self.ch = message.channel
-        self.help = banner
-        if message.author == self.user:
-            return
 
-        if message.content.lower() == "/help":
-            await self.ch.send(self.help)
+@client.event
+async def on_message(message):
+    """ Event Handler for messages """
+    if message.author == client.user:
+        return
+    await client.process_commands(message)
 
-        if message.content.lower() == "/hello":
-            await self.ch.send(f'Hello {message.author.mention},'
-                               '\nHow can I help you?')
+
+@client.command(name="version", description="Get The bot Version")
+async def version(ctx):
+    """ Function to handle version command """
+    await ctx.message.channel.send("```version: 0.0.1```")
+
+
+@client.command(name="hello", description="Greet user :)")
+async def hello(ctx):
+    """ Function to handle hello command """
+    ch = ctx.message.channel
+    await ch.send(f"Hello {ctx.message.author.mention}"
+                  "\nHow can I help you?")
 
 
 config = dotenv_values(".env")
-client = Client(command_prefix="+")
 client.run(config["TOKEN"])
