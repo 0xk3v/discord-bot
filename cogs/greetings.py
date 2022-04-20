@@ -12,15 +12,6 @@ class Greetings(commands.Cog):
         if channel is not None:
             await channel.send(f"Welcome {member.mention}")
 
-    @commands.command(name="greet")
-    async def greet(self, ctx):
-        """ Reply Hello """
-        member = ctx.author
-        if self._last_member is None or self._last_member.id != member.id:
-            await ctx.send(f"Hello {member.name}")
-        else:
-            await ctx.send(":)")
-
     @commands.command(name="hello", description="Greet user :)")
     async def hello(self, ctx):
         """ Greets Users """
