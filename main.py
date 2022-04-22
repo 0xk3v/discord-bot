@@ -4,11 +4,10 @@ import libs.config as config
 
 client = commands.Bot(command_prefix='/')
 
-
 extensions = config.get_config("cogs")
 
 if len(extensions) > 0:
-    print("Loading Cogs...")
+    print("[INFO] : Loading Cogs...")
     for ext in extensions:
         try:
             client.load_extension(ext)
