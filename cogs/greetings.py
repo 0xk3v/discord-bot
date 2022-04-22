@@ -2,7 +2,10 @@ from discord.ext import commands
 
 
 class Greetings(commands.Cog):
+    """ Class for Greetings cogs """
+
     def __init__(self, bot):
+        """ Class constructor """
         self.bot = bot
         self._last_member = None
 

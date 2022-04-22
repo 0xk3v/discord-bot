@@ -2,7 +2,10 @@ from discord.ext import commands
 
 
 class Version(commands.Cog):
+    """ Class to hold version cog """
+
     def __init__(self, bot):
+        """ Class constructor """
         self.bot = bot
 
     @commands.command(name="version")
